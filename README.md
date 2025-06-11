@@ -19,6 +19,45 @@ This template configures a single function, `api`, which is responsible for hand
 
 ## Usage
 
+
+### Local development
+
+Install dependencies with:
+
+```
+npm install
+```
+
+#### Running LocalStack for AWS Service Emulation
+
+To emulate AWS services locally, you can use [LocalStack](https://github.com/localstack/localstack). Install it with pip3:
+
+```
+pip3 install localstack
+```
+
+Then start LocalStack by running:
+
+```
+localstack start
+```
+
+This will launch LocalStack on your Mac, allowing you to test AWS integrations locally.
+
+#### Running LocalStack for AWS Service Emulation
+
+After installing dependecies and running localstack, you can run the service locally by running:
+
+```
+serverless offline
+```
+
+This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
+
+Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
+
+When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+
 ### Deployment
 
 Install dependencies with:
@@ -61,16 +100,4 @@ Which should result in the following response:
 { "message": "Hello from root!" }
 ```
 
-### Local development
 
-The easiest way to develop and test your function is to use the `dev` command:
-
-```
-serverless dev
-```
-
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
-
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
-
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
