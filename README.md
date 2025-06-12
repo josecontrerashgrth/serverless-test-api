@@ -13,14 +13,46 @@ authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
 
 # Serverless Framework Node Express API on AWS
 
-This template demonstrates how to develop and deploy a simple Node Express API service running on AWS Lambda using the Serverless Framework.
+This project demonstrates how to develop and deploy a simple Node.js Express API service running on AWS Lambda using the Serverless Framework.
 
-This template configures a single function, `api`, which is responsible for handling all incoming requests using the `httpApi` event. To learn more about `httpApi` event configuration options, please refer to [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api/). As the event is configured in a way to accept all incoming requests, the Express.js framework is responsible for routing and handling requests internally. This implementation uses the `serverless-http` package to transform the incoming event request payloads to payloads compatible with Express.js. To learn more about `serverless-http`, please refer to the [serverless-http README](https://github.com/dougmoscrop/serverless-http).
+This template configures a single function, `api`, which is responsible for handling all incoming requests using the `httpApi` event. To learn more about `httpApi` event configuration options, please refer to the [httpApi event docs](https://www.serverless.com/framework/docs/providers/aws/events/http-api). As the event is configured in a way to accept all incoming requests, the Express.js framework is responsible for routing and handling requests internally. This implementation uses the `serverless-http` package to transform the incoming event request payloads to payloads compatible with Express.js. To learn more about `serverless-http`, please refer to the [serverless-http README](https://github.com/serverless/serverless-http).
 
-## Usage
+---
 
+## 🚀 Quick Start Guide
 
-### Local development
+Follow these steps to set up and run the application in your local environment.
+
+### Step 1: Install Serverless Framework CLI
+
+If you don't already have the Serverless Framework CLI installed globally, this is the first step.
+
+1.  **Open your terminal** and run the following command:
+
+```bash
+npm install -g serverless
+```
+
+This will install the serverless (or sls) command globally on your system.
+
+### Step 2: Sign Up for Serverless Framework (Optional but Recommended)
+
+While not strictly necessary for local development, signing up and connecting your AWS account with the Serverless Framework allows you to leverage advanced features like observability and cloud deployment management.
+
+1.  **Create a free account** on the Serverless Framework website: https://www.serverless.com/
+
+2.  Once you have an account, you can log in from your terminal:
+
+```bash
+serverless login
+```
+This will open your browser to complete the authentication process.
+
+### Step 3: Clone the Repository and Navigate to the Project
+
+If you haven't already, clone this repository or download the source code and navigate into the project directory.
+
+### Step 4: Local development
 
 Install dependencies with:
 
