@@ -64,6 +64,18 @@ npm install
 
 To emulate AWS services locally, you can use [LocalStack](https://github.com/localstack/localstack). Install it with pip3:
 
+If you don't have `pip3` installed, you can install Python (which includes `pip3`) using Homebrew:
+
+```
+brew install python
+```
+
+After installation, verify `pip3` is available:
+
+```
+pip3 --version
+```
+
 ```
 pip3 install localstack
 ```
@@ -84,11 +96,15 @@ After installing dependecies and running localstack, you can run the service loc
 serverless offline
 ```
 
-This will start a local emulator of AWS Lambda and tunnel your requests to and from AWS Lambda, allowing you to interact with your function as if it were running in the cloud.
+This will start a local emulator of AWS Lambda and API Gateway, tunneling your requests to and from your function as if it were running in the cloud.
 
-Now you can invoke the function as before, but this time the function will be executed locally. Now you can develop your function locally, invoke it, and see the results immediately without having to re-deploy.
+You will see output in the terminal indicating that the API is listening on a local port (usually http://localhost:3000).
 
-When you are done developing, don't forget to run `serverless deploy` to deploy the function to the cloud.
+### Step 5: Test Your API Locally
+Now that your API is running locally, you can test it.
+
+1.  Open your browser or a tool like curl or Postman/Insomnia.
+2.  Make a request to the local URL provided by serverless offline (e.g., http://localhost:3000/).
 
 ### Deployment
 
