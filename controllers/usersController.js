@@ -1,19 +1,36 @@
 // Import the user model from Dynamoose
 const User = require('../models/userModel');
 
+// Import the necessary module
+const { generateUuid } = require('../utils');
+
 const users = {
     // Create a new user
     createUser: async (req, res) => {
         try {
-            const { id, name, email, age } = req.body;
+            const { name, email, age } = req.body;
 
-            if (!id || !name || !email) {
+            // Validate the required fields
+            if (!name || !email) {
                 return res.status(400).json({ error: 'Fields id, name, and email are required' });
             }
 
+            // Check if the email already exists with scan or query
+
+            const existingUser = await User.scan('email').eq(email).exec();
+
+            // Using the query method with a global secondary index for email
+            //const existingUser = await User.query('email').eq(email).using('EmailIndex').exec();
+
+            if (existingUser && existingUser.count > 0) {
+                return res.status(409).json({ error: 'User with this email already exists.' });
+            }
+
+            // Generate a unique ID for the user
+            const userId = generateUuid()
             // Create a new instance of the User model with the data from the body
             const newUser = new User({
-                id,
+                id: userId, // Generate a unique ID for the user
                 name,
                 email,
                 age: age
@@ -28,7 +45,7 @@ const users = {
             // Dynamoose may throw validation or DynamoDB errors
             console.error('Error creating user:', error);
             // You can add logic for specific Dynamoose validation errors if needed
-            res.status(500).json({ error: 'Internal server error while creating user' });
+            res.status(500).json({ error });
         }
     },
 
@@ -72,14 +89,8 @@ const users = {
     updateUser: async (req, res) => {
         try {
             const { id } = req.params;
-            const { name, email, age } = req.body;
 
-            // Prepare the object with the fields to update.
-            // Dynamoose will ignore undefined or null fields if they are not in the schema or not specified.
-            const updates = {};
-            if (name !== undefined) updates.name = name;
-            if (email !== undefined) updates.email = email;
-            if (age !== undefined) updates.age = age;
+            const updates = req.body;
 
             if (Object.keys(updates).length === 0) {
                 return res.status(400).json({ error: 'No fields to update' });

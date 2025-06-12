@@ -1,14 +1,30 @@
 const dynamoose = require('dynamoose');
 
-// Config LocalStack
-dynamoose.aws.sdk.config.update({
-    accessKeyId: 'test', // Credentials dummy for LocalStack
-    secretAccessKey: 'test', // Credentials dummy for LocalStack
-    region: 'us-east-1', // Any region is fine for LocalStack
-    endpoint: 'http://localhost:4566' // Endpoint of LocalStack for DynamoDB
+
+/* 
+// Create new DynamoDB instance
+const ddb = new dynamoose.aws.ddb.DynamoDB({
+    "credentials": {
+        "accessKeyId": "AKID",
+        "secretAccessKey": "SECRET"
+    },
+    "region": "us-east-1"
 });
 
-console.log('Dynamoose configurado para LocalStack en:', dynamoose.aws.sdk.config.endpoint);
+// Set DynamoDB instance to the Dynamoose DDB instance
+dynamoose.aws.ddb.set(ddb);
+ */
 
-// Exports the Dynamoose instance for use in other modules
-module.exports = dynamoose;
+// Set DynamoDB instance to the default AWS SDK DynamoDB instance
+dynamoose.model.defaults = {
+    create: true, // Create table if it does not exist
+    update: true, // Update table if it exists
+    waitForActive: {
+        enabled: true,
+        check: 1000,
+        timeout: 60000
+    }
+};
+
+// Set the DynamoDB instance to use the local DynamoDB emulator
+dynamoose.aws.ddb.local("http://localhost:4566");

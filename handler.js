@@ -1,8 +1,13 @@
+// Init Database
+require('./db/dynamooseClient');
+
 const serverless = require("serverless-http");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const router = require("./router/router");
+//Load models
+require('./models');
 
 
 const app = express();

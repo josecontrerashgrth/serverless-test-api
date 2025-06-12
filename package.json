@@ -9,7 +9,8 @@
     "cors": "^2.8.5",
     "dynamoose": "^4.0.4",
     "express": "^4.19.2",
-    "serverless-http": "^3.2.0"
+    "serverless-http": "^3.2.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "serverless-offline": "^14.4.0"

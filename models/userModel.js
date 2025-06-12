@@ -1,4 +1,4 @@
-const dynamoose = require('../db/dynamooseClient');
+const dynamoose = require('dynamoose');
 
 // 1. Define user schema
 const userSchema = new dynamoose.Schema({
@@ -14,7 +14,11 @@ const userSchema = new dynamoose.Schema({
     email: {
         type: String,
         required: true,
-
+        index: {
+            "name": "EmailIndex", //Define a global secondary index for email
+            "type": "global", // Type of index
+            "project": true,
+        }
     },
     age: {
         type: Number,
@@ -25,6 +29,8 @@ const userSchema = new dynamoose.Schema({
 });
 
 // 2. Create the model (table, schema) using the schema
-const User = dynamoose.model('test-table', userSchema);
+const User = dynamoose.model('users', userSchema)
 
+// 3. Export the User model
 module.exports = User;
+
